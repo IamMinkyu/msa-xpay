@@ -4,7 +4,6 @@ import com.xpay.membership.adapter.out.persistance.MembershipJpaEntity;
 import com.xpay.membership.adapter.out.persistance.MembershipMapper;
 import com.xpay.membership.application.port.in.RegisterMembershipCommand;
 import com.xpay.membership.application.port.in.RegisterMembershipUseCase;
-import com.xpay.membership.application.port.out.MembershipPersistenceAdapter;
 import com.xpay.membership.application.port.out.RegisterMembershipPort;
 import com.xpay.membership.domain.Membership;
 import common.UseCase;
