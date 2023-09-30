@@ -48,6 +48,7 @@ public class MembershipPersistenceAdapter implements RegisterMembershipPort, Fin
         entity.setName(membershipName.getNameValue());
         entity.setEmail(membershipEmail.getEmailValue());
         entity.setAddress(membershipAddress.getAddressValue());
+        entity.setValid(membershipIsValid.isValidValue());
         entity.setCorp(membershipIsCorp.isCorpValue());
 
         return membershipRepository.save(entity);
