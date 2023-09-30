@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class MembershipPersistenceAdapter implements RegisterMembershipPort, FindMembershipPort {
+public class MembershipPersistenceAdapter implements RegisterMembershipPort, FindMembershipPort, ModifyMembershipPort {
 
     private final SpringDataMembershipRepository membershipRepository;
     @Override
@@ -31,5 +31,23 @@ public class MembershipPersistenceAdapter implements RegisterMembershipPort, Fin
     @Override
     public MembershipJpaEntity findMembership(Membership.MembershipId membershipId) {
         return membershipRepository.getById(membershipId.getMembershipIdValue());
+    }
+
+    @Override
+    public MembershipJpaEntity updateMembership(
+        Membership.MembershipId membershipId,
+        Membership.MembershipName membershipName,
+        Membership.MembershipEmail membershipEmail,
+        Membership.MembershipAddress membershipAddress,
+        Membership.MembershipIsValid membershipIsValid,
+        Membership.MembershipIsCorp membershipIsCorp) {
+
+        MembershipJpaEntity entity = this.findMembership(membershipId);
+        entity.setName(membershipName.getNameValue());
+        entity.setEmail(membershipEmail.getEmailValue());
+        entity.setAddress(membershipAddress.getAddressValue());
+        entity.setCorp(membershipIsCorp.isCorpValue());
+
+        return membershipRepository.save(entity);
     }
 }
