@@ -14,33 +14,26 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RegisterMembershipControllerTest {
-
+public class FindMembershipControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper mapper;
-
     @Test
-    public void testRegisterMembership() throws Exception {
+    public void testFindMembership() throws Exception {
         RegisterMembershipRequest request = new RegisterMembershipRequest("mklee", "iamdevstar@gmail.com", "ongoulro",false);
-        Membership expect = Membership.generateMember(
-                new Membership.MembershipId(Long.parseLong("1")),
-                new Membership.MembershipName("mklee"),
-                new Membership.MembershipEmail("iamdevstar@gmail.com"),
-                new Membership.MembershipAddress("ongoulro"),
-                new Membership.MembershipIsValid(true),
-                new Membership.MembershipIsCorp(false));
-
         mockMvc.perform(
             MockMvcRequestBuilders.post("/membership/register")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(request)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(mapper.writeValueAsString(expect)));
+                .content(mapper.writeValueAsString(request)));
+
+        String membershipId = "1";
+        mockMvc.perform(get("/membership/" + membershipId))
+            .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
