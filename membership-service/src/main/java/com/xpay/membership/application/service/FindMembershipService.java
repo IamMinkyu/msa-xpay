@@ -6,7 +6,7 @@ import com.xpay.membership.application.port.in.FindMembershipCommand;
 import com.xpay.membership.application.port.in.FindMembershipUseCase;
 import com.xpay.membership.application.port.out.FindMembershipPort;
 import com.xpay.membership.domain.Membership;
-import common.UseCase;
+import com.xpay.common.UseCase;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

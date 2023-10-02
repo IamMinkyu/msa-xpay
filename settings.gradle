@@ -1,1 +1,4 @@
 rootProject.name = 'MyXPay'
+include 'membership-service'
+include 'common'
+

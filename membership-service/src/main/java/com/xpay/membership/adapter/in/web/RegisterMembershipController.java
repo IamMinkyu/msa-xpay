@@ -3,7 +3,7 @@ package com.xpay.membership.adapter.in.web;
 import com.xpay.membership.application.port.in.RegisterMembershipCommand;
 import com.xpay.membership.application.port.in.RegisterMembershipUseCase;
 import com.xpay.membership.domain.Membership;
-import common.WebAdapter;
+import com.xpay.common.WebAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
