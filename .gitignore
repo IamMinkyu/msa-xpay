@@ -5,6 +5,8 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+/**/gradle
+
 /*/build/
 axon-server-se/*/*
 db/data/*
