@@ -5,7 +5,6 @@ import com.xpay.membership.application.port.in.RegisterMembershipUseCase;
 import com.xpay.membership.domain.Membership;
 import com.xpay.common.WebAdapter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

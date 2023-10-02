@@ -3,7 +3,7 @@ package com.xpay.membership;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xpay.membership.adapter.in.web.RegisterMembershipRequest;
 import com.xpay.membership.domain.Membership;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
