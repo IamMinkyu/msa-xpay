@@ -42,6 +42,8 @@ subprojects {
 
         testImplementation 'com.tngtech.archunit:archunit:1.0.1'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation group: 'com.palantir.gradle.docker', name: 'gradle-docker', version: '0.35.0'
+        implementation 'mysql:mysql-connector-java:8.0.33'
     }
 
     test {
@@ -61,6 +63,8 @@ project(':membership-service') { // 컴파일 시 multi-module-database 로딩
     jar { enabled = false }
 
     dependencies {
+        implementation 'com.palantir.gradle.docker:gradle-docker:0.35.0'
+        implementation 'mysql:mysql-connector-java:8.0.33'
         implementation project(':common')
     }
 }
