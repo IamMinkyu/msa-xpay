@@ -18,13 +18,8 @@ public class RegisterMembershipController {
     private final RegisterMembershipUseCase registerMembershipUseCase;
     @PostMapping(path="/membership/register")
     Membership registerMembership(@RequestBody RegisterMembershipRequest request) {
-        System.out.println("HelloWorld!!");
 
-        // request
-
-        // request -> command
-
-        // useCase(request)
+        //request -> command
         RegisterMembershipCommand command = RegisterMembershipCommand.builder()
                 .name(request.getName())
                 .email(request.getEmail())
