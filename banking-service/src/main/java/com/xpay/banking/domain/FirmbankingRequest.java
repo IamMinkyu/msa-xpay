@@ -15,7 +15,7 @@ public class FirmbankingRequest {
   private final String fromBankAccountNumber;
   private final String toBankName;
   private final String toBankAccountNumber;
-  private final int moneyAmount; //only own
+  private final int moneyAmount; //only won
   private final String firmBankingStatus;
   private UUID uuid;
 

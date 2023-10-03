@@ -23,7 +23,7 @@ public class RequestFirmbankingJpaEntity {
   private String fromBankAccountNumber;
   private String toBankName;
   private String toBankAccountNumber;
-  private int moneyAmount; //only own
+  private int moneyAmount; //only won
   private String firmBankingStatus;
   private UUID uuid;
 

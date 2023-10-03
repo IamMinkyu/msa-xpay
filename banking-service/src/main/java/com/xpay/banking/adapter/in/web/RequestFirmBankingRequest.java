@@ -13,5 +13,5 @@ public class RequestFirmBankingRequest {
   private String fromBankAccountNumber;
   private String toBankName;
   private String toBankAccountNumber;
-  private int moneyAmount; //only own
+  private int moneyAmount; //only won
 }

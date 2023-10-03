@@ -14,7 +14,7 @@ public class RequestFirmBankingCommand extends SelfValidating<RequestFirmBanking
     private final String fromBankAccountNumber;
     private final String toBankName;
     private final String toBankAccountNumber;
-    private final int moneyAmount; //only own
+    private final int moneyAmount; //only won
 
     public RequestFirmBankingCommand(
         String fromBankName,
