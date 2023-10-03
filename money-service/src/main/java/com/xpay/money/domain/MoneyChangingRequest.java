@@ -57,8 +57,8 @@ public class MoneyChangingRequest {
   }
   @Value
   public static class ChangingType {
-    private final String changingType;
-    public ChangingType(String type) {
+    private final int changingType;
+    public ChangingType(int type) {
       this.changingType = type;
     }
   }
@@ -71,8 +71,8 @@ public class MoneyChangingRequest {
   }
   @Value
   public static class ChangingMoneyStatus {
-    private final String changingMoneyStatus;
-    public ChangingMoneyStatus(String status) {
+    private final int changingMoneyStatus;
+    public ChangingMoneyStatus(int status) {
       this.changingMoneyStatus = status;
     }
   }
