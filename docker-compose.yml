@@ -1,9 +1,61 @@
 version: '3'
 services:
+  zookeeper1:
+    image: confluentinc/cp-zookeeper:7.3.2
+    hostname: zookeeper1
+    container_name: zookeeper1
+    ports:
+      - "2181:2181"
+    expose:
+      - "2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: zookeeper1:2888:3888
+  kafka1:
+    image: confluentinc/cp-kafka:7.3.2
+    hostname: kafka1
+    container_name: kafka1
+    expose:
+      - "9092"
+    ports:
+      - "9092:9092"
+      - "19092:19092"
+      - "29092:29092"
+      - "9999:9999"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka1:19092,EXTERNAL://${DOCKER_HOST_IP:-20.196.210.20}:9092,DOCKER://host.docker.internal:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper1:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_JMX_PORT: 9999
+      KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
+      KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+    depends_on:
+      - zookeeper1
+  kafka-ui1:
+    image: provectuslabs/kafka-ui
+    container_name: ui
+    ports:
+      - "8989:8080"
+    depends_on:
+      - kafka1
+      - zookeeper1
+    restart: always
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1:19092
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper1:2181
   mysql:
     image: mysql:8.0
     networks:
-      - xpay_network
+      - fastcampuspay_network
     volumes:
       - ./db/conf.d:/etc/mysql/conf.d
       - ./db/data:/var/lib/mysql
@@ -20,7 +72,7 @@ services:
     build:
       dockerfile: ./membership-service/Dockerfile
     networks:
-      - xpay_network
+      - fastcampuspay_network
     ports:
       - "8081:8080"
     depends_on:
@@ -35,7 +87,7 @@ services:
     build:
       dockerfile: ./banking-service/Dockerfile
     networks:
-      - xpay_network
+      - fastcampuspay_network
     ports:
       - "8082:8080"
     depends_on:
@@ -47,5 +99,5 @@ services:
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 networks:
-  xpay_network:
+  fastcampuspay_network:
     driver: bridge
