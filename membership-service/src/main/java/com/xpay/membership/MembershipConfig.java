@@ -5,4 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan("com.xpay.common")
-public class MembershipConfig { }
+public class MembershipConfig {
+  public static void main(String[] args) {
+    System.out.println("MembershipConfig is created");
+  }
+}

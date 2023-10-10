@@ -24,6 +24,8 @@ public class LoggingProducer {
 
     this.producer = new KafkaProducer<>(props);
     this.topic = topic;
+
+    System.out.println("LoggingProducer is created");
   }
 
   public void sendMessage(String key, String value) {
