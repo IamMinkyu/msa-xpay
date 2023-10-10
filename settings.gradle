@@ -2,3 +2,5 @@ rootProject.name = 'my-xpay'
 include 'membership-service'
 include 'common'
 include 'banking-service'
+include 'logging-consumer'
+
