@@ -17,6 +17,6 @@ public class LoggingAspect {
   public void beforeMethodExecution(JoinPoint joinPoint) {
     String methodName = joinPoint.getSignature().getName();
     loggingProducer.sendMessage("Logging", "Before execution method: " + methodName);
-
+    // Produce Access Log
   }
 }

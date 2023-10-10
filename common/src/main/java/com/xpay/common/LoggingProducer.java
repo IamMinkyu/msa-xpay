@@ -18,6 +18,7 @@ public class LoggingProducer {
 
     Properties props = new Properties();
     props.put("bootstrap.servers", bootstrapServers);
+    props.put("allow.auto.create.topic", "true");
     props.put("key.serialize", "org.apache.kafka.common.serialization.StringSerializer");
     props.put("value.serialize", "org.apache.kafka.common.serialization.StringSerializer");
 

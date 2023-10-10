@@ -69,6 +69,7 @@ services:
       - MYSQL_USER=testuser
       - MYSQL_PASSWORD=test1234
   membership-service:
+    platform: linux/amd64
     build:
       dockerfile: ./membership-service/Dockerfile
     networks:
@@ -83,7 +84,10 @@ services:
       - SPRING_DATASOURCE_PASSWORD=test1234
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - KAFKA_CLUSTER_BOOTSTRAPSERVERS=kafka1:19092
+      - LOGGING_TOPIC=logging.out.stdout
   banking-service:
+    platform: linux/amd64
     build:
       dockerfile: ./banking-service/Dockerfile
     networks:
@@ -98,6 +102,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD=test1234
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - KAFKA_CLUSTER_BOOTSTRAPSERVERS=kafka1:19092
+      - LOGGING_TOPIC=logging.out.stdout
 networks:
   fastcampuspay_network:
     driver: bridge
