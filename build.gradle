@@ -18,15 +18,6 @@ subprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
-//    group = 'com.xpay'
-//    version = '0.0.1-SNAPSHOT'
-
-//    configurations {
-//        compileOnly {
-//            extendsFrom annotationProcessor
-//        }
-//    }
-
     repositories {
         mavenCentral()
     }
@@ -60,31 +51,3 @@ bootJar {
 bootBuildImage{
     enabled = false
 }
-
-//project(':common') { // 컴파일 시 multi-module-database 로딩
-//    bootJar { enabled = false } // core 은 bootJar 로 패키징 할 필요 없음
-//    jar { enabled = true }
-//    dependencies {
-//
-//    }
-//}
-//project(':membership-service') { // 컴파일 시 multi-module-database 로딩
-//    bootJar { enabled = true }
-//    jar { enabled = false }
-//
-//    dependencies {
-//        implementation 'com.palantir.gradle.docker:gradle-docker:0.35.0'
-//        implementation 'mysql:mysql-connector-java:8.0.33'
-//        implementation project(':common')
-//    }
-//}
-//project(':banking-service') { // 컴파일 시 multi-module-database 로딩
-//    bootJar { enabled = true }
-//    jar { enabled = false }
-//
-//    dependencies {
-//        implementation 'com.palantir.gradle.docker:gradle-docker:0.35.0'
-//        implementation 'mysql:mysql-connector-java:8.0.33'
-//        implementation project(':common')
-//    }
-//}
