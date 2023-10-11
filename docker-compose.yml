@@ -71,8 +71,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD=test1234
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - KAFKA_CLUSTER_BOOTSTRAPSERVERS=kafka1:29092
-      - LOGGING_TOPIC=logging.out.stdout
+      - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka1:29092
+      - LOGGING_TOPIC=xpay.logging.out.stdout
   banking-service:
     image: my-xpay-banking-service:0.0.1-SNAPSHOT
     networks:
@@ -87,8 +87,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD=test1234
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - KAFKA_CLUSTER_BOOTSTRAPSERVERS=kafka1:29092
-      - LOGGING_TOPIC=logging.out.stdout
+      - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka1:29092
+      - LOGGING_TOPIC=xpay.logging.out.stdout
 
 #  logging-consumer:
 #    image: my-xpay-logging-consumer:0.0.1-SNAPSHOT

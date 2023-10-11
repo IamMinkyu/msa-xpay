@@ -16,7 +16,7 @@ public class RequestFirmBankingController {
 
   private final RequestFirmbankingUseCase requestFirmbankingUseCase;
   @PostMapping("/banking/firmbanking/request")
-  public FirmbankingRequest registerBankAccount(@RequestBody RequestFirmBankingRequest request) {
+  public FirmbankingRequest requestFirmbanking(@RequestBody RequestFirmBankingRequest request) {
 
     RequestFirmBankingCommand command = RequestFirmBankingCommand.builder()
         .fromBankName(request.getFromBankName())
