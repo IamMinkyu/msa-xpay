@@ -8,26 +8,15 @@ plugins {
     id 'java'
 }
 
-bootJar.enabled = false
-
 subprojects {
     compileJava {
-        sourceCompatibility = 17
-        targetCompatibility = 17
+        sourceCompatibility = 21
+        targetCompatibility = 21
     }
     apply plugin: 'java'
     apply plugin: 'java-library'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-
-    group = 'com.xpay'
-    version = '0.0.1-SNAPSHOT'
-
-    configurations {
-        compileOnly {
-            extendsFrom annotationProcessor
-        }
-    }
 
     repositories {
         mavenCentral()
@@ -37,44 +26,28 @@ subprojects {
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
         implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-
+        
         testImplementation 'com.tngtech.archunit:archunit:1.0.1'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         implementation group: 'com.palantir.gradle.docker', name: 'gradle-docker', version: '0.35.0'
         implementation 'mysql:mysql-connector-java:8.0.33'
+        implementation 'org.springframework.kafka:spring-kafka'
+        implementation 'org.springframework.boot:spring-boot-starter-aop'
     }
 
     test {
         useJUnitPlatform()
+        maxHeapSize = "1024m"
     }
 }
 
-project(':common') { // 컴파일 시 multi-module-database 로딩
-    bootJar { enabled = false } // core 은 bootJar 로 패키징 할 필요 없음
-    jar { enabled = true }
-    dependencies {
-
-    }
+bootRun {
+    enabled = false
 }
-project(':membership-service') { // 컴파일 시 multi-module-database 로딩
-    bootJar { enabled = true }
-    jar { enabled = false }
-
-    dependencies {
-        implementation 'com.palantir.gradle.docker:gradle-docker:0.35.0'
-        implementation 'mysql:mysql-connector-java:8.0.33'
-        implementation project(':common')
-    }
+bootJar {
+    enabled = false
 }
-project(':banking-service') { // 컴파일 시 multi-module-database 로딩
-    bootJar { enabled = true }
-    jar { enabled = false }
-
-    dependencies {
-        implementation 'com.palantir.gradle.docker:gradle-docker:0.35.0'
-        implementation 'mysql:mysql-connector-java:8.0.33'
-        implementation project(':common')
-    }
+bootBuildImage{
+    enabled = false
 }
