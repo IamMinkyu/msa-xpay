@@ -90,17 +90,19 @@ services:
       - KAFKA_CLUSTER_BOOTSTRAPSERVERS=kafka1:29092
       - LOGGING_TOPIC=logging.out.stdout
 
-  logging-consumer:
-    image: my-xpay-logging-consumer:0.0.1-SNAPSHOT
-    networks:
-      - fastcampuspay_network
-    restart: always
-    depends_on:
-      - kafka
-      - zookeeper
-    environment:
-      - KAFKA_CLUSTER_BOOTSTRAPSERVERS=kafka1:29092
-      - LOGGING_TOPIC=logging.out.stdout
+#  logging-consumer:
+#    image: my-xpay-logging-consumer:0.0.1-SNAPSHOT
+#    networks:
+#      - fastcampuspay_network
+#    ports:
+#      - "8083:8080"
+#    restart: always
+#    depends_on:
+#      - kafka
+#      - zookeeper
+#    environment:
+#      - KAFKA_CLUSTER_BOOTSTRAPSERVERS=kafka1:29092
+#      - LOGGING_TOPIC=logging.out.stdout
 networks:
   fastcampuspay_network:
     driver: bridge
