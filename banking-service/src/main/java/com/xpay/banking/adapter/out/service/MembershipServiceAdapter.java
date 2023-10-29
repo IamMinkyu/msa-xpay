@@ -1,11 +1,13 @@
-package com.xpay.membership.adapter.out.service;
+package com.xpay.banking.adapter.out.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xpay.banking.application.port.out.GetMembershipPort;
-import com.xpay.banking.application.port.out.Membership;
+import com.xpay.banking.application.port.out.MembershipStatus;
 import com.xpay.common.CommonHttpClient;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MembershipServiceAdapter implements GetMembershipPort {
 
   private final CommonHttpClient commonHttpClient;
@@ -18,24 +20,24 @@ public class MembershipServiceAdapter implements GetMembershipPort {
     this.membershipServiceUrl = membershipServiceUrl;
   }
   @Override
-  public Membership getMembership(String membershipId) {
+  public MembershipStatus getMembership(String membershipId) {
 
     // call membership service
-    String url = String.join("/", this.membershipServiceUrl, membershipId));
+//    String url = String.join("/", "http://membership-service:8080", membershipId);
+    String url = this.membershipServiceUrl + "/membership/" + membershipId;
     try {
+
       String jsonResponse = this.commonHttpClient.sendGetRequest(url).body();
       ObjectMapper mapper = new ObjectMapper();
       Membership membership = mapper.readValue(jsonResponse, Membership.class);
 
       if (membership.isValid()) {
-        return new Membership(membershipId, membership.getPoint());
+        return new MembershipStatus(membershipId, true);
+      } else {
+        return new MembershipStatus(membershipId, false);
       }
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-
-    // 실제로 http call
-    //
-    return null;
   }
 }
