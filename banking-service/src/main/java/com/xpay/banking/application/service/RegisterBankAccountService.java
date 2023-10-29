@@ -27,6 +27,7 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase {
     // 은행 계좌를 등록 해야 하는 서비스 (비즈니스 로직)
 
     // 0. 멤버가 정상인지 확인
+    // call membership service
 
     // 1. 외부 실제 은행에 등록이 가능한 계좌인지(정상인지) 확인한다.
     // Biz Logic -> External System
