@@ -6,6 +6,8 @@ import com.xpay.banking.adapter.out.persistance.RegisteredBankAccountJpaEntity;
 import com.xpay.banking.adapter.out.persistance.RegisteredBankAccountMapper;
 import com.xpay.banking.application.port.in.RegisterBankAccountCommand;
 import com.xpay.banking.application.port.in.RegisterBankAccountUseCase;
+import com.xpay.banking.application.port.out.GetMembershipPort;
+import com.xpay.banking.application.port.out.MembershipStatus;
 import com.xpay.banking.application.port.out.RegisterBankAccountPort;
 import com.xpay.banking.application.port.out.RequestBankAccountInfoPort;
 import com.xpay.banking.domain.RegisteredBankAccount;
@@ -21,6 +23,7 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase {
   private final RegisterBankAccountPort registerBankAccountPort;
   private final RegisteredBankAccountMapper bankAccountMapper;
   private final RequestBankAccountInfoPort requestBankAccountInfoPort;
+  private final GetMembershipPort getMembershipPort;
   @Override
   public RegisteredBankAccount registerBankAccount(RegisterBankAccountCommand command) {
 
@@ -28,6 +31,10 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase {
 
     // 0. 멤버가 정상인지 확인
     // call membership service
+    MembershipStatus membershipStatus = getMembershipPort.getMembership(command.getMembershipId());
+    if (!membershipStatus.isValid()) {
+      return null;
+    }
 
     // 1. 외부 실제 은행에 등록이 가능한 계좌인지(정상인지) 확인한다.
     // Biz Logic -> External System

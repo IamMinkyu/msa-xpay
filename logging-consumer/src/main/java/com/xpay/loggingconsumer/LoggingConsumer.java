@@ -13,13 +13,15 @@ import java.util.Properties;
 @Component
 public class LoggingConsumer {
   private final KafkaConsumer<String, String> consumer;
-  public LoggingConsumer(@Value("${kafka.cluster.bootstrapservers}") String bootstrapServers,
+  public LoggingConsumer(@Value("${kafka.clusters.bootstrapservers}") String bootstrapServers,
                          @Value("${logging.topic}") String topic) {
+
+    System.out.println("LoggingConsumer: " + bootstrapServers + ", " + topic);
 
     Properties props = new Properties();
     props.put("bootstrap.servers", bootstrapServers);
-    props.put("allow.auto.create.topic", "true");
-    props.put("group.id", "my-group");
+//    props.put("allow.auto.create.topic", "true");
+//    props.put("group.id", "my-group");
     props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
     props.put("value.deserialize", "org.apache.kafka.common.serialization.StringDeserializer");
     this.consumer = new KafkaConsumer<>(props);
