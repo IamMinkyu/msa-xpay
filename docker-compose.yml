@@ -90,19 +90,37 @@ services:
       - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka1:29092
       - LOGGING_TOPIC=xpay.logging.out.stdout
       - SERVICE_MEMBERSHIP_URL=http://membership-service:8080
-  logging-consumer:
-    image: my-xpay-logging-consumer:0.0.1-SNAPSHOT
+  money-service:
+    image: my-xpay-money-service:0.0.1-SNAPSHOT
     networks:
       - fastcampuspay_network
     ports:
       - "8083:8080"
-    restart: always
     depends_on:
-      - kafka
-      - zookeeper
+      - mysql
     environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql/xpaydb?serverTimezone=Asia/Seoul&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=testuser
+      - SPRING_DATASOURCE_PASSWORD=test1234
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka1:29092
       - LOGGING_TOPIC=xpay.logging.out.stdout
+      - SERVICE_MEMBERSHIP_URL=http://membership-service:8080
+      - TASK_TOPIC=xpay.task.topic
+#  logging-consumer:
+#    image: my-xpay-logging-consumer:0.0.1-SNAPSHOT
+#    networks:
+#      - fastcampuspay_network
+#    ports:
+#      - "8089:8080"
+#    restart: always
+#    depends_on:
+#      - kafka
+#      - zookeeper
+#    environment:
+#      - KAFKA_CLUSTERS_BOOTSTRAPSERVERS=kafka1:29092
+#      - LOGGING_TOPIC=xpay.logging.out.stdout
 networks:
   fastcampuspay_network:
     driver: bridge
