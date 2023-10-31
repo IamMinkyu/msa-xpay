@@ -1,4 +1,4 @@
-package com.xpay.banking.adapter.out.service;
+package com.xpay.money.application.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Membership { // for-banking-service
+public class Membership {
   private String membershipId;
   private String name;
   private String email;
