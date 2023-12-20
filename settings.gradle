@@ -4,5 +4,5 @@ include 'membership-service'
 include 'money-service'
 include 'banking-service'
 include 'logging-consumer'
-
+include 'remittance-service'
 
